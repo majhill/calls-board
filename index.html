@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C.A.L.L.S. Leadership Summit Board Briefing</title>
+  <style>
+    :root {
+      --navy: #152238;
+      --blue: #244c7c;
+      --gold: #c89b3c;
+      --green: #2f6f4e;
+      --red: #9f3a38;
+      --amber: #9a6b00;
+      --gray: #64748b;
+      --light: #f6f8fb;
+      --card: #ffffff;
+      --border: #d9e2ec;
+      --ink: #1f2937;
+      --sidebar: 260px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--light);
+      line-height: 1.45;
+      overflow-x: hidden;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: var(--sidebar) 1fr;
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      background: var(--navy);
+      color: white;
+      padding: 22px 18px;
+      border-right: 6px solid var(--gold);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .logo-box {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      background: white;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: .04em;
+      border: 3px solid var(--gold);
+      flex: 0 0 auto;
+      overflow: hidden;
+    }
+
+    .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .fallback-logo {
+      display: none;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.02rem;
+      line-height: 1.18;
+    }
+
+    .brand-subtitle {
+      font-size: .78rem;
+      color: rgba(255,255,255,0.78);
+      margin-top: 4px;
+    }
+
+    aside a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px 11px;
+      border-radius: 10px;
+      margin: 4px 0;
+      font-weight: 700;
+      font-size: .92rem;
+    }
+
+    aside a:hover,
+    aside a:focus,
+    aside a.active {
+      background: rgba(255,255,255,0.13);
+      outline: none;
+    }
+
+    aside a.active {
+      box-shadow: inset 4px 0 0 var(--gold);
+      color: #fff8e8;
+    }
+
+    .side-note {
+      margin-top: 18px;
+      font-size: .78rem;
+      color: rgba(255,255,255,0.75);
+      border-top: 1px solid rgba(255,255,255,0.18);
+      padding-top: 14px;
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding: 32px 34px 44px;
+      max-width: 1220px;
+      margin: 0 auto;
+      scroll-margin-top: 0;
+      border-bottom: 0;
+    }
+
+    .page.is-active {
+      display: block;
+    }
+
+    .dashboard-page {
+      background:
+        linear-gradient(135deg, rgba(21,34,56,.95), rgba(36,76,124,.92)),
+        radial-gradient(circle at top right, rgba(200,155,60,.18), transparent 35%);
+      color: white;
+      max-width: none;
+      padding: 36px 40px 48px;
+    }
+
+    .dashboard-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 16px 18px;
+      border-bottom: 4px solid var(--gold);
+      margin-bottom: 20px;
+      background: white;
+      color: var(--navy);
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(21,34,56,0.08);
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 2.05rem;
+      letter-spacing: .01em;
+    }
+
+    h2 {
+      margin: 0 0 4px;
+      color: var(--navy);
+      font-size: 1.68rem;
+    }
+
+    .dashboard-page h2,
+    .dashboard-page h3 {
+      color: var(--navy);
+    }
+
+    h3 {
+      margin: 18px 0 10px;
+      color: var(--blue);
+      font-size: 1.08rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #334155;
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    .dashboard-page .page-title h1,
+    .dashboard-page .page-title .subtitle {
+      color: var(--navy);
+    }
+
+    .mission {
+      margin: 18px 0 22px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 14px;
+      padding: 15px 17px;
+      font-weight: 700;
+      max-width: 1030px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 3px 10px rgba(21,34,56,0.05);
+    }
+
+    .dashboard-page .card {
+      background: rgba(255,255,255,0.96);
+      color: var(--ink);
+      border-color: rgba(255,255,255,.3);
+    }
+
+    .span-3 { grid-column: span 3; }
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-7 { grid-column: span 7; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+
+    .metric {
+      font-size: 2rem;
+      line-height: 1.05;
+      font-weight: 900;
+      color: var(--navy);
+      margin: 4px 0 6px;
+    }
+
+    .label {
+      color: var(--gray);
+      font-size: .8rem;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: .06em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 8px 0 18px;
+    }
+
+    th, td {
+      padding: 10px 11px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+      font-size: .94rem;
+    }
+
+    th {
+      background: #eef4fb;
+      color: var(--navy);
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .status {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: .76rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .green { background: #e7f6ed; color: var(--green); }
+    .yellow { background: #fff4d8; color: var(--amber); }
+    .red { background: #fde8e8; color: var(--red); }
+    .blue { background: #e8f1fb; color: var(--blue); }
+    .gray { background: #f1f5f9; color: #475569; }
+
+    ul, ol { margin: 8px 0 0 20px; padding: 0; }
+    li { margin: 5px 0; }
+
+    .callout {
+      border-left: 5px solid var(--gold);
+      background: #fffaf0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      font-weight: 650;
+    }
+
+    .risk-callout {
+      border-left: 5px solid var(--red);
+      background: #fff1f2;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      font-weight: 650;
+    }
+
+    .mini {
+      font-size: .9rem;
+      color: #475569;
+    }
+
+    .dashboard-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .dashboard-links a {
+      background: #eef4fb;
+      color: var(--blue);
+      padding: 11px 12px;
+      border-radius: 11px;
+      text-decoration: none;
+      font-weight: 900;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .dashboard-links a:hover {
+      background: #dbeafe;
+    }
+
+    .page-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .page-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      background: var(--navy);
+      color: white;
+      text-decoration: none;
+      font-weight: 900;
+      border: 2px solid var(--navy);
+    }
+
+    .page-nav a:hover,
+    .page-nav a:focus {
+      background: var(--blue);
+      border-color: var(--blue);
+      outline: none;
+    }
+
+    .page-count {
+      color: var(--gray);
+      font-size: .88rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .dashboard-page .page-nav {
+      max-width: 1220px;
+      margin-left: auto;
+      margin-right: auto;
+      border-top-color: rgba(255,255,255,0.24);
+    }
+
+    .dashboard-page .page-count {
+      color: rgba(255,255,255,0.9);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .footer-note {
+      color: var(--gray);
+      font-size: .84rem;
+      padding-top: 16px;
+    }
+
+    @media (max-width: 980px) {
+      .app { display: block; }
+      aside {
+        position: sticky;
+        height: auto;
+        border-right: none;
+        border-bottom: 5px solid var(--gold);
+        z-index: 20;
+      }
+      aside a { display: inline-block; }
+      .side-note { display: none; }
+      .page, .dashboard-page { padding: 24px 18px 34px; }
+      .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-12 {
+        grid-column: span 12;
+      }
+      .two-col, .dashboard-links { grid-template-columns: 1fr; }
+      .page-title { display: block; }
+      .page-nav {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      .page-count { order: -1; }
+    }
+
+    @media print {
+      .app { display: block; }
+      aside { display: none; }
+      .page {
+        display: block;
+        min-height: auto;
+        max-width: none;
+        padding: 20px;
+        page-break-after: always;
+        border-bottom: none;
+      }
+      .dashboard-page {
+        color: black;
+        background: white;
+      }
+      .dashboard-page h2,
+      .dashboard-page h3 {
+        color: var(--navy);
+      }
+      .page-nav { display: none; }
+      .card, table { box-shadow: none; break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">
+        <div class="logo-box" aria-label="C.A.L.L.S. logo">
+          <img src="BEST%20ONE.png" alt="C.A.L.L.S. logo" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-logo').style.display='block';">
+          <span class="fallback-logo">CALLS</span>
+        </div>
+        <div>
+          <div class="brand-title">C.A.L.L.S.<br>Leadership Summit</div>
+          <div class="brand-subtitle">Board Briefing</div>
+        </div>
+      </div>
+
+      <a href="#dashboard">Dashboard Vision</a>
+      <a href="#actions">Board Actions</a>
+      <a href="#program">Program</a>
+      <a href="#registration">Registration</a>
+      <a href="#budget">Budget</a>
+      <a href="#sponsors">Sponsors</a>
+      <a href="#presenters">Presenters</a>
+      <a href="#volunteers">Volunteers</a>
+      <a href="#logistics">Logistics</a>
+      <a href="#risk">Risk & Compliance</a>
+      <a href="#recognition">Recognition</a>
+      <a href="#quick-review">Quick Review</a>
+      <a href="#due-outs">Due-Outs</a>
+
+      <div class="side-note">
+        Saturday, August 22, 2026<br>
+        Meadows Farm & Venue<br>
+        Maysville, NC
+      </div>
+    </aside>
+
+    <main>
+      <section id="dashboard" class="page dashboard-page">
+        <div class="dashboard-inner">
+          <div class="page-title">
+            <div>
+              <h1>C.A.L.L.S. Leadership Summit Board Briefing</h1>
+              <div class="subtitle">Long Point / Stella Leadership Summit &mdash; “Let Us Rise Up and Build.” &mdash; Nehemiah 2:18</div>
+            </div>
+            <div class="logo-box" style="width:72px;height:72px;">
+              <img src="BEST%20ONE.png" alt="C.A.L.L.S. logo" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-logo').style.display='block';">
+              <span class="fallback-logo">CALLS</span>
+            </div>
+          </div>
+
+          <div class="mission">
+            Mission for this meeting: leave with every critical task assigned, every major decision made, and no ambiguity regarding responsibilities.
+          </div>
+
+          <div class="grid">
+            <div class="card span-3">
+              <div class="label">Countdown</div>
+              <div class="metric" id="countdown">Calculating...</div>
+              <div class="mini">Days until August 22, 2026.</div>
+            </div>
+
+            <div class="card span-3">
+              <div class="label">Current Registration</div>
+              <div class="metric">16</div>
+              <div class="mini">Additional prospects have expressed interest but have not yet registered.</div>
+            </div>
+
+            <div class="card span-3">
+              <div class="label">Confirmed Support</div>
+              <div class="metric">$3,050</div>
+              <div class="mini">Includes prior gift support, grant, donation, and gift cards.</div>
+            </div>
+
+            <div class="card span-3">
+              <div class="label">Menu</div>
+              <div class="metric">Updated</div>
+              <div class="mini">Breakfast, lunch, condiments, and service supplies are listed in Logistics.</div>
+            </div>
+
+            <div class="card span-6">
+              <h3>Progress Since Last Meeting</h3>
+              <ul>
+                <li>NCCF grant awarded: <strong>$1,500</strong>.</li>
+                <li>Church announcements completed and flyers distributed.</li>
+                <li>Menu updated from the Friday meeting notes.</li>
+                <li>Cap decision completed: 70 embroidered caps.</li>
+                <li>Registration currently at <strong>16</strong>.</li>
+              </ul>
+            </div>
+
+            <div class="card span-6">
+              <h3>Between Now and Next Meeting</h3>
+              <ul>
+                <li>Verify completion of event insurance.</li>
+                <li>Confirm estate planning presenter through Hezekiah.</li>
+                <li>Ensure direct presenter communication is completed.</li>
+                <li>Finalize honorarium amount for General Flowers.</li>
+                <li>Finalize presenter appreciation plan.</li>
+                <li>Set next board meeting date.</li>
+              </ul>
+            </div>
+
+            <div class="card span-4">
+              <h3>Decision Tracker</h3>
+              <table>
+                <tr><th>Decision</th><th>Status</th></tr>
+                <tr><td>Caps</td><td><span class="status green">Decided</span></td></tr>
+                <tr><td>Menu</td><td><span class="status green">Updated</span></td></tr>
+                <tr><td>Insurance</td><td><span class="status yellow">Verify Completion</span></td></tr>
+                <tr><td>Estate Planning Presenter</td><td><span class="status yellow">Confirm</span></td></tr>
+                <tr><td>General Flowers Honorarium</td><td><span class="status yellow">Needs Decision</span></td></tr>
+              </table>
+            </div>
+
+            <div class="card span-4">
+              <h3>Risk & Compliance Snapshot</h3>
+              <table>
+                <tr><th>Item</th><th>Status</th></tr>
+                <tr><td>Insurance verification</td><td><span class="status yellow">Track</span></td></tr>
+                <tr><td>Stairs / accessibility navigation</td><td><span class="status yellow">Mitigate</span></td></tr>
+                <tr><td>Heat / upstairs comfort</td><td><span class="status yellow">Mitigate</span></td></tr>
+                <tr><td>Internet / AV uncertainty</td><td><span class="status yellow">Plan Offline</span></td></tr>
+              </table>
+            </div>
+
+            <div class="card span-4">
+              <h3>Follow-On Sections</h3>
+              <div class="dashboard-links">
+                <a href="#actions">Actions</a>
+                <a href="#budget">Budget</a>
+                <a href="#sponsors">Sponsors</a>
+                <a href="#risk">Risk</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="actions" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Board Action Tracker</h2>
+            <div class="subtitle">Decision-oriented action page</div>
+          </div>
+        </div>
+
+        <table>
+          <tr>
+            <th>Action / Decision</th>
+            <th>Lead</th>
+            <th>Status</th>
+            <th>Meeting Outcome Needed</th>
+          </tr>
+          <tr>
+            <td>Verify completion of event insurance.</td>
+            <td>Hezekiah</td>
+            <td><span class="status yellow">Verify</span></td>
+            <td>Confirm status and any remaining requirement.</td>
+          </tr>
+          <tr>
+            <td>Confirm estate planning presenter.</td>
+            <td>Hezekiah</td>
+            <td><span class="status yellow">Confirm</span></td>
+            <td>Presenter name, contact, and confirmation status.</td>
+          </tr>
+          <tr>
+            <td>Decide honorarium amount for General Flowers.</td>
+            <td>All Board Members</td>
+            <td><span class="status yellow">Needs Decision</span></td>
+            <td>Final dollar amount and payment method.</td>
+          </tr>
+          <tr>
+            <td>Decide presenter appreciation plan, including whether gift cards are appropriate after budget review.</td>
+            <td>All Board Members</td>
+            <td><span class="status yellow">Needs Decision</span></td>
+            <td>Approved amount and recipients.</td>
+          </tr>
+          <tr>
+            <td>Identify volunteers for registration, food setup, book/QR table, timekeeping, setup, and breakdown.</td>
+            <td>Steve</td>
+            <td><span class="status yellow">In Progress</span></td>
+            <td>Names assigned to critical event-day functions.</td>
+          </tr>
+          <tr>
+            <td>Ensure direct presenter communication is completed, including expectations, setup needs, no guaranteed internet, and file deadline.</td>
+            <td>Gary / Hezekiah</td>
+            <td><span class="status blue">Prepare / Send</span></td>
+            <td>Presenter message approved and sent.</td>
+          </tr>
+          <tr>
+            <td>Set next board meeting date.</td>
+            <td>All Board Members</td>
+            <td><span class="status yellow">Open</span></td>
+            <td>Calendar date confirmed.</td>
+          </tr>
+        </table>
+      </section>
+
+      <section id="program" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Event Timeline & Program</h2>
+            <div class="subtitle">Working program sequence</div>
+          </div>
+        </div>
+
+        <table>
+          <tr><th>Time</th><th>Program Element</th><th>Lead / Notes</th></tr>
+          <tr><td>8:00 – 9:00 AM</td><td>Arrival, light breakfast, fellowship / networking</td><td>All Board Members</td></tr>
+          <tr><td>9:00 – 9:10 AM</td><td>Welcome & Opening Remarks</td><td>Gary</td></tr>
+          <tr><td></td><td>Prayer</td><td>Steve</td></tr>
+          <tr><td></td><td>Program Overview</td><td>Hezekiah</td></tr>
+          <tr><td>9:15 – 10:00 AM</td><td>Breakout Session #1: MFCU Financial Discipline / SSA Social Security Benefits</td><td>Room assignments needed.</td></tr>
+          <tr><td>10:05 – 10:50 AM</td><td>Breakout Session #2: NCWorks Career Pathways / Estate Planning</td><td>Estate planning presenter to be confirmed by Hezekiah.</td></tr>
+          <tr><td>10:55 – 11:15 AM</td><td>Group Reflection</td><td>All Board Members</td></tr>
+          <tr><td>11:20 – 11:50 AM</td><td>Keynote: Major General Alfred K. Flowers</td><td>Gary introduces General Flowers.</td></tr>
+          <tr><td>11:50 AM – 12:05 PM</td><td>Recognition of Presenters & Supporters</td><td>Hezekiah lead; specifically include General Flowers.</td></tr>
+          <tr><td>12:05 – 12:15 PM</td><td>Sponsor Recognition / Special Recognition / Closing Remarks</td><td>All Board Members</td></tr>
+          <tr><td>12:15 – 1:00 PM</td><td>Lunch & Fellowship</td><td>All Board Members</td></tr>
+        </table>
+
+        <div class="callout">
+          Presenter expectation: internet may not be available. Presenters should be prepared to brief offline and provide setup requirements in advance.
+        </div>
+      </section>
+
+      <section id="registration" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Registration & Outreach</h2>
+            <div class="subtitle">Current count and outreach status</div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card span-4">
+            <div class="label">Registered</div>
+            <div class="metric">16</div>
+            <p class="mini">Additional prospects have expressed interest but have not yet registered.</p>
+          </div>
+          <div class="card span-8">
+            <h3>Outreach Notes</h3>
+            <ul>
+              <li>Church announcements completed.</li>
+              <li>Flyers distributed.</li>
+              <li>Continue direct personal invitations from board members.</li>
+              <li>Use community platforms where appropriate to increase visibility.</li>
+              <li>Registration remains targeted to men and boys, middle school age and up.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="budget" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Budget & Expense Planning</h2>
+            <div class="subtitle">Funding, expenses, and ownership</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Confirmed Support Snapshot</h3>
+            <table>
+              <tr><th>Source</th><th>Amount / Value</th></tr>
+              <tr><td>Prior confirmed gift support</td><td><strong>$1,100</strong></td></tr>
+              <tr><td>NCCF grant</td><td><strong>$1,500</strong></td></tr>
+              <tr><td>Jones-Onslow EMC</td><td><strong>$250</strong></td></tr>
+              <tr><td>Gift cards: Walmart / Lowe's</td><td><strong>$200</strong></td></tr>
+              <tr><td><strong>Total Confirmed Support</strong></td><td><strong>$3,050</strong></td></tr>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Known / Planned Expenses</h3>
+            <table>
+              <tr><th>Expense</th><th>Amount</th><th>Lead</th></tr>
+              <tr><td>70 embroidered caps</td><td><strong>$453.47</strong></td><td>Gary</td></tr>
+              <tr><td>Insurance</td><td><strong>~$100</strong></td><td>Hezekiah</td></tr>
+              <tr><td>Books</td><td><strong>$70</strong></td><td>Gary</td></tr>
+              <tr><td>Printed programs</td><td>Qty based on expected attendees</td><td>Gary</td></tr>
+              <tr><td>Food / catering</td><td>TBD</td><td>Gary</td></tr>
+              <tr><td>Decorations</td><td>TBD</td><td>All Board Members</td></tr>
+              <tr><td>Supplies</td><td>TBD</td><td>Hezekiah</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <h3>Expense Ownership Notes</h3>
+        <table>
+          <tr><th>Category</th><th>Owner</th><th>Notes</th></tr>
+          <tr><td>Caps</td><td>Gary</td><td>70 embroidered caps selected.</td></tr>
+          <tr><td>Books</td><td>Gary</td><td>5 books at $14 each.</td></tr>
+          <tr><td>Printed Programs</td><td>Gary</td><td>Gary will create and have the programs printed. Quantity based on planned attendance.</td></tr>
+          <tr><td>Food / Catering</td><td>Gary</td><td>Includes food planning and coordination.</td></tr>
+          <tr><td>Insurance</td><td>Hezekiah</td><td>Estimated at approximately $100.</td></tr>
+          <tr><td>Decorations</td><td>All Board Members</td><td>Balloons intended for site entrance down dirt road.</td></tr>
+          <tr><td>Other Requirements</td><td>All Board Members</td><td>Identify needs and owners.</td></tr>
+        </table>
+      </section>
+
+      <section id="sponsors" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Sponsors & Community Partners</h2>
+            <div class="subtitle">Separate sponsor briefing page</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          Purpose: clearly identify who has supported the summit, what they provided, and how they should be recognized before, during, and after the event.
+        </div>
+
+        <table>
+          <tr>
+            <th>Sponsor / Partner</th>
+            <th>Contribution</th>
+            <th>Value</th>
+            <th>Status</th>
+            <th>Recognition Plan</th>
+          </tr>
+          <tr>
+            <td>NCCF</td>
+            <td>Grant award</td>
+            <td><strong>$1,500</strong></td>
+            <td><span class="status green">Confirmed</span></td>
+            <td>Program, digital recognition, and event acknowledgment.</td>
+          </tr>
+          <tr>
+            <td>Jones-Onslow EMC</td>
+            <td>Cash donation</td>
+            <td><strong>$250</strong></td>
+            <td><span class="status green">Confirmed</span></td>
+            <td>Program and event acknowledgment.</td>
+          </tr>
+          <tr>
+            <td>Walmart</td>
+            <td>Gift cards</td>
+            <td>Included in $200 gift card total</td>
+            <td><span class="status green">Confirmed</span></td>
+            <td>Sponsor page, program, and event acknowledgment.</td>
+          </tr>
+          <tr>
+            <td>Lowe's</td>
+            <td>Gift cards</td>
+            <td>Included in $200 gift card total</td>
+            <td><span class="status green">Confirmed</span></td>
+            <td>Sponsor page, program, and event acknowledgment.</td>
+          </tr>
+          <tr>
+            <td>Chick-fil-A</td>
+            <td>Breakfast support</td>
+            <td>In-kind</td>
+            <td><span class="status green">Confirmed</span></td>
+            <td>Program and event acknowledgment.</td>
+          </tr>
+          <tr>
+            <td>MFCU</td>
+            <td>Presenter support, financial literacy materials, backpacks/notebooks/pencils</td>
+            <td>In-kind</td>
+            <td><span class="status green">Confirmed</span></td>
+            <td>Major community partner recognition; program and event acknowledgment.</td>
+          </tr>
+          <tr>
+            <td>NCWorks</td>
+            <td>Career Pathways presenter</td>
+            <td>In-kind</td>
+            <td><span class="status green">Confirmed</span></td>
+            <td>Program and presenter recognition.</td>
+          </tr>
+          <tr>
+            <td>SSA</td>
+            <td>Social Security benefits session</td>
+            <td>In-kind</td>
+            <td><span class="status yellow">Confirm Details</span></td>
+            <td>Program and presenter recognition once final details are verified.</td>
+          </tr>
+        </table>
+      </section>
+
+      <section id="presenters" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Presenter Coordination</h2>
+            <div class="subtitle">Expectations and requirements</div>
+          </div>
+        </div>
+
+        <table>
+          <tr><th>Presenter / Session</th><th>Status</th><th>Required Follow-Up</th></tr>
+          <tr><td>General Flowers &mdash; Keynote</td><td><span class="status green">Confirmed</span></td><td>Confirm arrival time, honorarium, book/signing plan, recognition script.</td></tr>
+          <tr><td>MFCU &mdash; Financial Discipline</td><td><span class="status green">Confirmed</span></td><td>Request final names, bios, logos, setup needs, and handouts.</td></tr>
+          <tr><td>NCWorks &mdash; Career Pathways</td><td><span class="status green">Confirmed</span></td><td>Confirm presenter name, session focus, and setup needs.</td></tr>
+          <tr><td>SSA &mdash; Social Security Benefits</td><td><span class="status yellow">Confirm Details</span></td><td>Confirm presenter, title, materials, and AV/setup needs.</td></tr>
+          <tr><td>Estate Planning</td><td><span class="status yellow">Confirm</span></td><td>Confirm presenter through Hezekiah and obtain session title, bio, and setup needs.</td></tr>
+        </table>
+
+        <h3>Standard Presenter Communication</h3>
+        <ul>
+          <li>Time limits are firm due to compressed program schedule.</li>
+          <li>Internet may not be available; presenters should prepare to brief offline.</li>
+          <li>Ask presenters to identify laptop, projector, sound, table, handout, or power requirements.</li>
+          <li>Request slides/materials in advance where applicable.</li>
+          <li>Confirm arrival/report time and point of contact.</li>
+        </ul>
+      </section>
+
+      <section id="volunteers" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Volunteer Assignments</h2>
+            <div class="subtitle">Working roster</div>
+          </div>
+        </div>
+
+        <table>
+          <tr><th>Function</th><th>Lead</th><th>Notes</th></tr>
+          <tr><td>Registration</td><td>Gary</td><td>QR/sign-in flow; ensure backup paper option.</td></tr>
+          <tr><td>Setup</td><td>Hezekiah</td><td>Venue layout, tables, signage, room readiness.</td></tr>
+          <tr><td>Breakdown</td><td>Hezekiah</td><td>End-of-event restoration and cleanup.</td></tr>
+          <tr><td>Book / QR Order Table</td><td>Gary</td><td>Book order QR and General Flowers book support.</td></tr>
+          <tr><td>Timekeeper</td><td>Steve</td><td>All should assist, but Steve is assigned lead.</td></tr>
+          <tr><td>Food Setup</td><td>All Board Members</td><td>Breakfast/lunch flow and serving support.</td></tr>
+          <tr><td>Supplies List</td><td>Hezekiah</td><td>Owner of supplies list.</td></tr>
+          <tr><td>Decorations / Balloons</td><td>All Board Members</td><td>Balloons for site entrance down dirt road.</td></tr>
+        </table>
+
+        <div class="risk-callout">
+          Need: identify additional volunteers so board members can remain focused on leadership, hospitality, and program flow.
+        </div>
+      </section>
+
+      <section id="logistics" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Logistics & Operations</h2>
+            <div class="subtitle">Event-day control page</div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card span-4">
+            <h3>Breakfast Menu</h3>
+            <ul>
+              <li>Chick-fil-A sausage biscuits.</li>
+              <li>Chick-fil-A chicken biscuits.</li>
+              <li>Grits.</li>
+              <li>Eggs.</li>
+              <li>Juice.</li>
+              <li>Coffee.</li>
+              <li>Water.</li>
+            </ul>
+          </div>
+
+          <div class="card span-4">
+            <h3>Lunch Menu</h3>
+            <ul>
+              <li>BBQ from Smithfield.</li>
+              <li>Fried chicken from Lowes Food.</li>
+              <li>Green beans.</li>
+              <li>Rice.</li>
+              <li>Mashed potatoes.</li>
+              <li>Rolls.</li>
+              <li>Hush puppies, pending final decision.</li>
+              <li>Lemon pound cake.</li>
+              <li>Banana pudding.</li>
+              <li>Lemonade.</li>
+              <li>Water.</li>
+            </ul>
+          </div>
+
+          <div class="card span-4">
+            <h3>Condiments & Supplies</h3>
+            <ul>
+              <li>Salt.</li>
+              <li>Pepper.</li>
+              <li>Hot sauce.</li>
+              <li>Vinegar.</li>
+              <li>Plates.</li>
+              <li>Forks.</li>
+              <li>Spoons.</li>
+              <li>Napkins.</li>
+              <li>Hand sanitizer.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Venue / Operations</h3>
+        <table>
+          <tr><th>Area</th><th>Lead</th><th>Notes</th></tr>
+          <tr><td>Venue readiness</td><td>Hezekiah</td><td>Meadows Farm & Venue, Maysville, NC.</td></tr>
+          <tr><td>Entrance marking</td><td>All Board Members</td><td>Use balloons/signage because the entrance is located down a dirt road.</td></tr>
+          <tr><td>Room setup</td><td>Hezekiah</td><td>Tables, chairs, room flow, power, and AV assumptions.</td></tr>
+          <tr><td>Food coordination</td><td>Gary</td><td>Breakfast/lunch timing and service flow.</td></tr>
+          <tr><td>Printed programs</td><td>Gary</td><td>Quantity based on planned attendance.</td></tr>
+        </table>
+      </section>
+
+      <section id="risk" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Risk & Compliance</h2>
+            <div class="subtitle">Issues to monitor and mitigate</div>
+          </div>
+        </div>
+
+        <table>
+          <tr><th>Risk / Compliance Area</th><th>Lead</th><th>Mitigation / Follow-Up</th><th>Status</th></tr>
+          <tr>
+            <td>Insurance verification</td>
+            <td>Hezekiah</td>
+            <td>Verify completion and retain proof of coverage for event file.</td>
+            <td><span class="status yellow">Verify</span></td>
+          </tr>
+          <tr>
+            <td>Stairs / navigation</td>
+            <td>All Board Members</td>
+            <td>Ensure attendees know where to go and consider assistance for those who may have difficulty with stairs.</td>
+            <td><span class="status yellow">Mitigate</span></td>
+          </tr>
+          <tr>
+            <td>Heat / upstairs comfort</td>
+            <td>Hezekiah</td>
+            <td>Use fans, airflow, pacing, and room management to reduce heat concerns.</td>
+            <td><span class="status yellow">Mitigate</span></td>
+          </tr>
+          <tr>
+            <td>Internet not guaranteed</td>
+            <td>Gary / Hezekiah</td>
+            <td>Ensure presenters are prepared to brief without internet access.</td>
+            <td><span class="status yellow">Plan Offline</span></td>
+          </tr>
+          <tr>
+            <td>AV / setup assumptions</td>
+            <td>Gary / Hezekiah</td>
+            <td>Ask presenters for setup requirements in advance.</td>
+            <td><span class="status yellow">Collect Info</span></td>
+          </tr>
+        </table>
+      </section>
+
+      <section id="recognition" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Recognition Plan</h2>
+            <div class="subtitle">Who must be acknowledged</div>
+          </div>
+        </div>
+
+        <table>
+          <tr><th>Person / Group</th><th>Recognition Method</th><th>Lead</th></tr>
+          <tr><td>Major General Alfred K. Flowers</td><td>Keynote introduction, formal thanks, honorarium, possible book recognition.</td><td>Gary / Hezekiah</td></tr>
+          <tr><td>Presenters</td><td>Public thanks and possible gift cards pending final budget decision.</td><td>Hezekiah</td></tr>
+          <tr><td>Sponsors</td><td>Sponsor page, printed program, verbal recognition, digital recognition where appropriate.</td><td>All Board Members</td></tr>
+          <tr><td>Volunteers</td><td>Event-day thanks and follow-up appreciation.</td><td>All Board Members</td></tr>
+          <tr><td>Board Members</td><td>Internal acknowledgement; ensure roles are clear and visible.</td><td>Gary</td></tr>
+        </table>
+
+        <div class="callout">
+          Recognition should be specific: name the sponsor or presenter, state what they contributed, and connect the contribution to the mission of the summit.
+        </div>
+
+        <div class="footer-note">
+          Working board briefing draft. Update figures and assignments as decisions are finalized.
+        </div>
+      </section>
+
+      <section id="quick-review" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Quick Review</h2>
+            <div class="subtitle">Final review items from Friday meeting notes</div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card span-4">
+            <h3>Funds & Gift Cards</h3>
+            <table>
+              <tr><th>Item</th><th>Amount / Value</th></tr>
+              <tr><td>Cash</td><td><strong>$1,100</strong></td></tr>
+              <tr><td>NCCF Grant</td><td><strong>$1,500</strong></td></tr>
+              <tr><td>JOEMC</td><td><strong>$250</strong></td></tr>
+              <tr><td>Lowes gift card</td><td><strong>$25</strong></td></tr>
+              <tr><td>Walmart gift cards</td><td><strong>$175</strong></td></tr>
+              <tr><td><strong>Total</strong></td><td><strong>$3,050</strong></td></tr>
+            </table>
+          </div>
+
+          <div class="card span-4">
+            <h3>Expense Review</h3>
+            <ul>
+              <li>Caps: <strong>$500</strong> for 70.</li>
+              <li>Books: <strong>$70</strong> for 5.</li>
+              <li>Insurance: <strong>$100</strong>.</li>
+              <li>Decorations.</li>
+              <li>Audio support.</li>
+              <li>Caterer.</li>
+              <li>Gift for speakers.</li>
+              <li>Speaker honorarium.</li>
+            </ul>
+          </div>
+
+          <div class="card span-4">
+            <h3>Program & Sponsors</h3>
+            <ul>
+              <li>General Flowers.</li>
+              <li>MFCU.</li>
+              <li>SSA.</li>
+              <li>Estate planning.</li>
+              <li>General Flowers bio.</li>
+              <li>Program agenda.</li>
+              <li>Sponsors.</li>
+              <li>Lunch on Friday with General Flowers.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Final Coordination Checklist</h3>
+        <table>
+          <tr><th>Area</th><th>Review Item</th></tr>
+          <tr><td>Event setup</td><td>Set up; reset / clean up; list of supplies and logistics; volunteers.</td></tr>
+          <tr><td>Guest flow</td><td>Set up sign-in; set up book order process; confirm how many attendees to plan for.</td></tr>
+          <tr><td>Promotion</td><td>Final promo push; organization slide show; business cards; media promo.</td></tr>
+          <tr><td>Orders</td><td>Order shirts; place order with Chick-fil-A.</td></tr>
+          <tr><td>Presenter follow-up</td><td>Final coordination with presenters; final note to General Flowers.</td></tr>
+          <tr><td>MFCU supplies</td><td>Drawstring bags, pens / pencils, and notes.</td></tr>
+        </table>
+      </section>
+
+      <section id="due-outs" class="page">
+        <div class="page-title">
+          <div>
+            <h2>Due-Outs & Owners</h2>
+            <div class="subtitle">Final commitments before adjournment</div>
+          </div>
+        </div>
+
+        <table>
+          <tr>
+            <th>#</th>
+            <th>Due-Out</th>
+            <th>Lead</th>
+            <th>Support</th>
+            <th>NLT</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Verify event insurance and retain proof of coverage.</td>
+            <td>Hezekiah</td>
+            <td>&mdash;</td>
+            <td>TBD</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Confirm Estate Planning presenter, including name, contact, and session title.</td>
+            <td>Hezekiah</td>
+            <td>Gary</td>
+            <td>TBD</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Contact all presenters with expectations, setup requirements, internet limitations, and slide deadline.</td>
+            <td>Gary / Hezekiah</td>
+            <td>&mdash;</td>
+            <td>TBD</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Finalize General Flowers honorarium.</td>
+            <td>Board</td>
+            <td>Treasurer</td>
+            <td>Today</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Finalize presenter appreciation plan.</td>
+            <td>Board</td>
+            <td>&mdash;</td>
+            <td>Today</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Assign volunteers for registration, food setup, timekeeping, setup, and cleanup.</td>
+            <td>Steve</td>
+            <td>Board</td>
+            <td>TBD</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Order caps.</td>
+            <td>Gary</td>
+            <td>&mdash;</td>
+            <td>TBD</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Purchase books.</td>
+            <td>Gary</td>
+            <td>&mdash;</td>
+            <td>TBD</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Finalize printed program.</td>
+            <td>Gary</td>
+            <td>&mdash;</td>
+            <td>TBD</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Place Chick-fil-A breakfast order.</td>
+            <td>Gary</td>
+            <td>&mdash;</td>
+            <td>TBD</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>Confirm lunch vendor and order.</td>
+            <td>Gary</td>
+            <td>&mdash;</td>
+            <td>TBD</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>Schedule next board meeting.</td>
+            <td>Board</td>
+            <td>&mdash;</td>
+            <td>Before adjournment</td>
+          </tr>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const pages = Array.from(document.querySelectorAll(".page"));
+    const sidebarLinks = Array.from(document.querySelectorAll("aside a[href^='#']"));
+
+    function buildPageNavigation() {
+      pages.forEach((page, index) => {
+        const previousPage = pages[index - 1];
+        const nextPage = pages[index + 1];
+        const nav = document.createElement("nav");
+        nav.className = "page-nav";
+        nav.setAttribute("aria-label", "Section navigation");
+
+        const previousLink = document.createElement("a");
+        previousLink.href = previousPage ? `#${previousPage.id}` : `#${pages[pages.length - 1].id}`;
+        previousLink.textContent = previousPage ? "Previous Section" : "Last Section";
+
+        const pageCount = document.createElement("div");
+        pageCount.className = "page-count";
+        pageCount.textContent = `Section ${index + 1} of ${pages.length}`;
+
+        const nextLink = document.createElement("a");
+        nextLink.href = nextPage ? `#${nextPage.id}` : `#${pages[0].id}`;
+        nextLink.textContent = nextPage ? "Next Section" : "Back to Dashboard";
+
+        nav.append(previousLink, pageCount, nextLink);
+        page.appendChild(nav);
+      });
+    }
+
+    function showPageFromHash() {
+      const requestedId = window.location.hash.replace("#", "");
+      const activePage = pages.find((page) => page.id === requestedId) || pages[0];
+
+      pages.forEach((page) => {
+        page.classList.toggle("is-active", page === activePage);
+        page.setAttribute("aria-hidden", page === activePage ? "false" : "true");
+      });
+
+      sidebarLinks.forEach((link) => {
+        const isActive = link.getAttribute("href") === `#${activePage.id}`;
+        link.classList.toggle("active", isActive);
+        if (isActive) {
+          link.setAttribute("aria-current", "page");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+
+    buildPageNavigation();
+    window.addEventListener("hashchange", showPageFromHash);
+    showPageFromHash();
+
+    function updateCountdown() {
+      const eventDate = new Date("2026-08-22T08:00:00-04:00");
+      const now = new Date();
+      const diff = eventDate - now;
+      const dayMs = 1000 * 60 * 60 * 24;
+      const days = Math.max(0, Math.ceil(diff / dayMs));
+      const el = document.getElementById("countdown");
+      if (el) el.textContent = days;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000 * 60 * 30);
+  </script>
+</body>
+</html>
